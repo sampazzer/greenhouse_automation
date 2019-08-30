@@ -13,9 +13,10 @@ def load_template():
 def handle_message(message):
     print("received message: " +message)
 
-
+#This will be my main control loop that will read sensor information.
+#It will spawn other threads where needed for actions with faster update time.
 def send_temperature():
-    while threading.main_thread().isAlive():
+    while threading.main_thread().isAlive(): #Shuts this thread down when main thread is Ctrl-C'd after its completed.
         x = random.randrange(11)
         print(str(x))
         socketio.emit('send_temperature', {'data': x})

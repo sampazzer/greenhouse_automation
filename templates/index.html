@@ -8,18 +8,23 @@
   <body>
   <script src = "{{url_for('static', filename='socket.io.js')}}"></script>
   <script src = "{{url_for('static', filename='socket.io.js.map')}}"></script>
+
+  <p>THIS IS A TEST</p>
+  
+  <p id="tempWindow"></p>
+  
   <script>
 	var socket = io();
 	socket.on('connect',function(){
 		console.log("connected");
 		socket.emit('connects_data',"I have connected");
 	});
-	socket.on('send_temperature', function(data){
-		console.log(data);
-	
+	socket.on('send_temperature', function(temp_object){
+		console.log(temp_object.data);
+		document.getElementById("tempWindow").innerHTML = "Temperature: " + temp_object.data;
 	})
+
   </script>
-  <p>THIS IS A TEST</p>
   
   </body>
 </html>
