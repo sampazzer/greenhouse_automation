@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cultivar Greenhouse Dashboard</title>
+  </head>
+  <body>
+  <script src = "{{url_for('static', filename='socket.io.js')}}"></script>
+  <script src = "{{url_for('static', filename='socket.io.js.map')}}"></script>
+  <script>
+	var socket = io();
+	socket.on('connect',function(){
+		console.log("connected");
+		socket.emit('connects_data',"I have connected");
+	});
+	socket.on('send_temperature', function(data){
+		console.log(data);
+	
+	})
+  </script>
+  <p>THIS IS A TEST</p>
+  
+  </body>
+</html>
