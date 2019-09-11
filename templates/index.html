@@ -12,7 +12,7 @@
   <p>THIS IS A TEST</p>
   
   <p id="tempWindow"></p>
-  
+  <p id="humidWindow"></p>
   <script>
 	var socket = io();
 	socket.on('connect',function(){
@@ -21,7 +21,8 @@
 	});
 	socket.on('send_temperature', function(temp_object){
 		console.log(temp_object.data);
-		document.getElementById("tempWindow").innerHTML = "Temperature: " + temp_object.data;
+		document.getElementById("tempWindow").innerHTML = "Temperature: " + temp_object.temp;
+		document.getElementById("humidWindow").innerHTML = "Humidity: " + temp_object.humid;
 	})
 
   </script>
