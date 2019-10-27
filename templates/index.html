@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Cultivar Greenhouse Dashboard</title>
-  </head>
-  <body>
-  <script src = "{{url_for('static', filename='socket.io.js')}}"></script>
-  <script src = "{{url_for('static', filename='socket.io.js.map')}}"></script>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>Cultivar Greenhouse Dashboard</title>
+	</head>
 
-  <p>THIS IS A TEST</p>
-  
-  <p id="tempWindow"></p>
-  <p id="humidWindow"></p>
-  <p id="ventposWindow"></p>
-  <script>
-	var socket = io();
-	socket.on('connect',function(){
-		console.log("connected");
-		socket.emit('connects_data',"I have connected");
-	});
+	<body>
+		<script src = "{{url_for('static', filename='socket.io.js')}}"></script>
+		<script src = "{{url_for('static', filename='socket.io.js.map')}}"></script>
 
-	socket.on('send_temperature', function(temp_object){
-		document.getElementById("tempWindow").innerHTML = "Temperature: " + temp_object.temp;
-		document.getElementById("humidWindow").innerHTML = "Humidity: " + temp_object.humid;
-	});
-	
-	socket.on('send_vent_position', function(vent_pos){
-		document.getElementById("ventposWindow").innerHTML = "Vent Position: " + vent_pos.pos;
-	});
+		<p>Cultivate Care System</p>
 
-  </script>
-  
-  </body>
+		<p id="tempWindow"></p>
+		<p id="ventposWindow"></p>
+		<p id="humidWindow"></p>
+		<p id="soilMoistureWindow"></p>
+		<p id="wateringStatus"></p>
+
+		<script>
+			var socket = io();
+			socket.on('connect',function(){
+				console.log("connected");
+				socket.emit('connects_data',"I have connected");
+			});
+
+			socket.on('send_temperature', function(temp_object){
+				document.getElementById("tempWindow").innerHTML = "Temperature: " + temp_object.temp + "  Setpoint: " + temp_object.temp_setpoint;
+				document.getElementById("humidWindow").innerHTML = "Humidity: " + temp_object.humid;
+			});
+
+			socket.on('send_vent_position', function(vent_pos){
+				document.getElementById("ventposWindow").innerHTML = "Vent Position: " + vent_pos.pos;
+			});
+
+			socket.on('send_soilmoisture', function(soil_moisture){
+				document.getElementById("soilMoistureWindow").innerHTML = "Soil Moisture: " + soil_moisture.JSsoil + "%";
+			});
+			socket.on('watering_info', function(w){
+				document.getElementById("wateringStatus").innerHTML = "Watering status: " + w.watering_status;
+			});
+		</script>
+
+	</body>
 </html>
