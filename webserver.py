@@ -122,21 +122,21 @@ def open_close_vents():
         
         if open_vent_event.is_set():
             print("I am opening the vents")
-            socketio.emit('send_vent_position',{'pos' : "Going Open"})
+            socketio.emit('send_vent_position',{'pos' : "Vents Opening"})
             vent_closed = False
             socketio.sleep(3)
             vent_open = True
-            socketio.emit('send_vent_position',{'pos' : "Open"})
+            socketio.emit('send_vent_position',{'pos' : "Vents Open"})
             print("I have opened the vents")
             open_vent_event.clear()
         
         if close_vent_event.is_set():
             print("I am closing the vents")
-            socketio.emit('send_vent_position',{'pos' : "Going Closed"})
+            socketio.emit('send_vent_position',{'pos' : "Vents Closing"})
             vent_open = False
             socketio.sleep(3)
             vent_closed = True
-            socketio.emit('send_vent_position',{'pos' : "Closed"})
+            socketio.emit('send_vent_position',{'pos' : "Vents Closed"})
             print("I have closed the vents")
             close_vent_event.clear()
             
